@@ -1,7 +1,7 @@
 # Личный проект «Кекстаграм» [![Build status][travis-image]][travis-url]
 
 * Студент: [Марина](https://up.htmlacademy.ru/javascript/11/user/468867).
-* Наставник: `Неизвестно`.
+* Наставник: `Вадим Шевяков`.
 
 ---
 
