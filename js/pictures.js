@@ -3,7 +3,7 @@
 var photosNumber = 25;
 var urls = [];
 for (var mainPhoto = 1; mainPhoto <= photosNumber; mainPhoto++) {
-		urls[mainPhoto - 1] = 'photos/' + mainPhoto + '.jpg';
+  urls[mainPhoto - 1] = 'photos/' + mainPhoto + '.jpg';
 }
 
 var minimumLikes = 15;
