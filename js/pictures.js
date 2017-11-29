@@ -3,7 +3,7 @@
 var photosNumber = 25;
 var urls = [];
 for (var mainPhoto = 1; mainPhoto <= photosNumber; mainPhoto++) {
-	urls[mainPhoto - 1] = 'photos/' + mainPhoto + '.jpg';
+		urls[mainPhoto - 1] = 'photos/' + mainPhoto + '.jpg';
 }
 
 var minimumLikes = 15;
@@ -33,7 +33,7 @@ var generateRandomSubarray = function (arrayElements, minNumber, maxNumber) {
   var nElements = generateRandomNumber(minNumber, maxNumber);
   var newArray = [];
   for (var index = 0; index < Math.min(nElements, arrayCopy.length); index++) {
-    newArray[index] = getRandomElementWithDelete(arrayCopy);
+    newArray[index] = getRandomElement(arrayCopy);
   }
   return newArray;
 };
@@ -49,7 +49,7 @@ var generateRandomPhoto = function () {
 var photos = [];
 for (mainPhoto = 0; mainPhoto < photosNumber; mainPhoto++) {
   photos[mainPhoto] = generateRandomPhoto();
-};
+}
 
 var renderPhoto = function (photo, template) {
   var photoElement = template.cloneNode(true);
@@ -59,6 +59,16 @@ var renderPhoto = function (photo, template) {
   return photoElement;
 };
 
+var pictureTemplate = document.querySelector('#picture-template').content;
+var picturesBlock = document.querySelector('.pictures');
+picturesBlock.appendChild(fillBlock(photos, renderPhoto, pictureTemplate));
+
+var galleryOverlay = document.querySelector('.gallery-overlay');
+galleryOverlay.querySelector('img.gallery-overlay-image').src = photos[0].url;
+galleryOverlay.querySelector('.likes-count').textContent = photos[0].likes;
+galleryOverlay.querySelector('.comments-count').textContent = photos[0].comments.length;
+galleryOverlay.classList.remove('hidden');
+
 var fillBlock = function (objectsArray, renderFunction, template) {
   var fragment = document.createDocumentFragment();
   for (var indexObject = 0; indexObject < objectsArray.length; indexObject++) {
@@ -66,13 +76,3 @@ var fillBlock = function (objectsArray, renderFunction, template) {
   }
   return fragment;
 };
-
-var pictureTemplate = document.querySelector('#picture-template').content;
-var picturesBlock = document.querySelector('.pictures');
-picturesBlock.appendChild(fillBlock(photos, renderPhoto, pictureTemplate));
-galleryOverlay.classList.remove('hidden');
-
-var galleryOverlay = document.querySelector('.gallery-overlay');
-galleryOverlay.querySelector('img.gallery-overlay-image').src = photos[0].url;
-galleryOverlay.querySelector('.likes-count').textContent = photos[0].likes;
-galleryOverlay.querySelector('.comments-count').textContent = photos[0].comments.length;
