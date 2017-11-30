@@ -59,6 +59,14 @@ var renderPhoto = function (photo, template) {
   return photoElement;
 };
 
+var fillBlock = function (objectsArray, renderFunction, template) {
+  var fragment = document.createDocumentFragment();
+  for (var indexObject = 0; indexObject < objectsArray.length; indexObject++) {
+    fragment.appendChild(renderFunction(objectsArray[indexObject], template));
+  }
+  return fragment;
+};
+
 var pictureTemplate = document.querySelector('#picture-template').content;
 var picturesBlock = document.querySelector('.pictures');
 picturesBlock.appendChild(fillBlock(photos, renderPhoto, pictureTemplate));
@@ -68,11 +76,3 @@ galleryOverlay.querySelector('img.gallery-overlay-image').src = photos[0].url;
 galleryOverlay.querySelector('.likes-count').textContent = photos[0].likes;
 galleryOverlay.querySelector('.comments-count').textContent = photos[0].comments.length;
 galleryOverlay.classList.remove('hidden');
-
-var fillBlock = function (objectsArray, renderFunction, template) {
-  var fragment = document.createDocumentFragment();
-  for (var indexObject = 0; indexObject < objectsArray.length; indexObject++) {
-    fragment.appendChild(renderFunction(objectsArray[indexObject], template));
-  }
-  return fragment;
-};
