@@ -19,6 +19,9 @@ var comments = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
+
 var getRandomElement = function (arrayElements) {
   var indexElement = Math.floor(Math.random() * arrayElements.length);
   return arrayElements.splice(indexElement, 1);
@@ -76,3 +79,48 @@ galleryOverlay.querySelector('img.gallery-overlay-image').src = photos[0].url;
 galleryOverlay.querySelector('.likes-count').textContent = photos[0].likes;
 galleryOverlay.querySelector('.comments-count').textContent = photos[0].comments.length;
 galleryOverlay.classList.remove('hidden');
+
+var onPopupPressEsc = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  galleryOverlay.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupPressEsc);
+};
+
+var closePopup = function () {
+  galleryOverlay.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupPressEsc);
+};
+
+var linkClickHand = function (evt) {
+  evt.preventDefault();
+  var currentIndex = evt.currentTarget.dataset.id;
+  renderGalleryOverlay(pictures[currentIndex]);
+  openPopup();
+};
+
+var createLinkListener = function () {
+  var pictureLinks = similarListElement.querySelectorAll('.picture');
+
+  for (var i = 0; i < pictureLinks.length; i++) {
+    pictureLinks[i].addEventListener('click', linkClickHand);
+  }
+};
+
+var galleryClose = galleryOverlay.querySelector('.gallery-overlay-close');
+
+galleryClose.addEventListener('click', function () {
+  closePopup();
+});
+
+galleryClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+createLinkListener();
