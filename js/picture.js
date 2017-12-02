@@ -3,7 +3,7 @@
 var photosNumber = 25;
 var urls = [];
 for (var mainPhoto = 1; mainPhoto <= photosNumber; mainPhoto++) {
-		urls[mainPhoto - 1] = 'photos/' + mainPhoto + '.jpg';
+  urls[mainPhoto - 1] = 'photos/' + mainPhoto + '.jpg';
 }
 
 var minimumLikes = 15;
@@ -18,6 +18,9 @@ var comments = [
   'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
+
+var ESC_KEYCODE = 27;
+var ENTER_KEYCODE = 13;
 
 var getRandomElement = function (arrayElements) {
   var indexElement = Math.floor(Math.random() * arrayElements.length);
@@ -59,16 +62,6 @@ var renderPhoto = function (photo, template) {
   return photoElement;
 };
 
-var pictureTemplate = document.querySelector('#picture-template').content;
-var picturesBlock = document.querySelector('.pictures');
-picturesBlock.appendChild(fillBlock(photos, renderPhoto, pictureTemplate));
-galleryOverlay.classList.remove('hidden');
-
-var galleryOverlay = document.querySelector('.gallery-overlay');
-galleryOverlay.querySelector('img.gallery-overlay-image').src = photos[0].url;
-galleryOverlay.querySelector('.likes-count').textContent = photos[0].likes;
-galleryOverlay.querySelector('.comments-count').textContent = photos[0].comments.length;
-
 var fillBlock = function (objectsArray, renderFunction, template) {
   var fragment = document.createDocumentFragment();
   for (var indexObject = 0; indexObject < objectsArray.length; indexObject++) {
@@ -76,3 +69,58 @@ var fillBlock = function (objectsArray, renderFunction, template) {
   }
   return fragment;
 };
+
+var pictureTemplate = document.querySelector('#picture-template').content;
+var picturesBlock = document.querySelector('.pictures');
+picturesBlock.appendChild(fillBlock(photos, renderPhoto, pictureTemplate));
+
+var galleryOverlay = document.querySelector('.gallery-overlay');
+galleryOverlay.querySelector('img.gallery-overlay-image').src = photos[0].url;
+galleryOverlay.querySelector('.likes-count').textContent = photos[0].likes;
+galleryOverlay.querySelector('.comments-count').textContent = photos[0].comments.length;
+galleryOverlay.classList.remove('hidden');
+
+var onPopupPressEsc = function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    closePopup();
+  }
+};
+
+var openPopup = function () {
+  galleryOverlay.classList.remove('hidden');
+  document.addEventListener('keydown', onPopupPressEsc);
+};
+
+var closePopup = function () {
+  galleryOverlay.classList.add('hidden');
+  document.removeEventListener('keydown', onPopupPressEsc);
+};
+
+var linkClickHand = function (evt) {
+  evt.preventDefault();
+  var currentIndex = evt.currentTarget.dataset.id;
+  galleryOverlay(photos[currentIndex]);
+  openPopup();
+};
+
+var createLinkListener = function () {
+  var pictureLinks = galleryOverlay.querySelectorAll('.picture');
+
+  for (var i = 0; i < pictureLinks.length; i++) {
+    pictureLinks[i].addEventListener('click', linkClickHand);
+  }
+};
+
+var galleryClose = galleryOverlay.querySelector('.gallery-overlay-close');
+
+galleryClose.addEventListener('click', function () {
+  closePopup();
+});
+
+galleryClose.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ENTER_KEYCODE) {
+    closePopup();
+  }
+});
+
+createLinkListener();
