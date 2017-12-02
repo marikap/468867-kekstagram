@@ -124,5 +124,3 @@ galleryClose.addEventListener('keydown', function (evt) {
 });
 
 createLinkListener();
-
-
