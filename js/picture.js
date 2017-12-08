@@ -123,6 +123,6 @@
 
   overlayClose.addEventListener('click', onOverlayCloseClick);
   overlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
-  })();
+})();
 
 
