@@ -119,13 +119,9 @@ var onOverlayCloseEnterPress = function (evt) {
   }
 };
 
-<<<<<<< HEAD
   overlayClose.addEventListener('click', onOverlayCloseClick);
   overlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
 })();
 
-
-=======
 overlayClose.addEventListener('click', onOverlayCloseClick);
 overlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
->>>>>>> 8e40051c7497f4b414c784995e2c490e96a69068
