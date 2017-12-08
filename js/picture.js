@@ -1,5 +1,7 @@
 'use strict';
 
+(function () {
+
 var photosNumber = 25;
 var urls = [];
 for (var mainPhoto = 1; mainPhoto <= photosNumber; mainPhoto++) {
@@ -119,13 +121,6 @@ var onOverlayCloseEnterPress = function (evt) {
   }
 };
 
-<<<<<<< HEAD
-  overlayClose.addEventListener('click', onOverlayCloseClick);
-  overlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
-})();
-
-
-=======
 overlayClose.addEventListener('click', onOverlayCloseClick);
 overlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
->>>>>>> 8e40051c7497f4b414c784995e2c490e96a69068
+})();
