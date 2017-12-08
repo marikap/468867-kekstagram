@@ -42,7 +42,7 @@
     }
     currentFilter = evt.target.parentNode.htmlFor.replace('upload-', '');
     imagePreview.classList.add(currentFilter);
-};  
+  };
 
   var resizeImage = function (way) {
     way = way || false;
