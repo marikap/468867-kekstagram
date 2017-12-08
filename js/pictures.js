@@ -19,9 +19,6 @@ var comments = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
-
 var getRandomElement = function (arrayElements) {
   var indexElement = Math.floor(Math.random() * arrayElements.length);
   return arrayElements.splice(indexElement, 1);
@@ -74,50 +71,8 @@ var pictureTemplate = document.querySelector('#picture-template').content;
 var picturesBlock = document.querySelector('.pictures');
 picturesBlock.appendChild(fillBlock(photos, renderPhoto, pictureTemplate));
 
-// Личный проект: подробности 
-
 var galleryOverlay = document.querySelector('.gallery-overlay');
-var overlayClose = document.querySelector('.gallery-overlay-close');
-var pictures = document.querySelectorAll('.picture');
-
-var onOverlayEscPress = function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
-    closeOverlay();
-  }
-};
-
-var openOverlay = function (evt) {
-  evt.preventDefault();
-  var clickedElement = evt.currentTarget;
-  galleryOverlay.querySelector('img.gallery-overlay-image').src = clickedElement.querySelector('img').src;
-  galleryOverlay.querySelector('.likes-count').textContent = clickedElement.querySelector('.picture-likes').textContent;
-  galleryOverlay.querySelector('.comments-count').textContent = clickedElement.querySelector('.picture-comments').textContent;
-  galleryOverlay.classList.remove('hidden');
-  document.addEventListener('keydown', onOverlayEscPress);
-};
-
-var closeOverlay = function () {
-  galleryOverlay.classList.add('hidden');
-  document.removeEventListener('keydown', onOverlayEscPress);
-};
-
-var onPictureClick = function (evt) {
-  openOverlay(evt);
-};
-
-for (var i = 0; i < pictures.length; i++) {
-  pictures[i].addEventListener('click', onPictureClick);
-}
-
-var onOverlayCloseClick = function () {
-  closeOverlay();
-};
-
-var onOverlayCloseEnterPress = function (evt) {
-  if (evt.keyCode === ENTER_KEYCODE) {
-    closeOverlay();
-  }
-};
-
-overlayClose.addEventListener('click', onOverlayCloseClick);
-overlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
+galleryOverlay.querySelector('img.gallery-overlay-image').src = photos[0].url;
+galleryOverlay.querySelector('.likes-count').textContent = photos[0].likes;
+galleryOverlay.querySelector('.comments-count').textContent = photos[0].comments.length;
+galleryOverlay.classList.remove('hidden');
