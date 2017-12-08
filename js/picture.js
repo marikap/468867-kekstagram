@@ -122,6 +122,3 @@ var onOverlayCloseEnterPress = function (evt) {
   overlayClose.addEventListener('click', onOverlayCloseClick);
   overlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
 })();
-
-overlayClose.addEventListener('click', onOverlayCloseClick);
-overlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
