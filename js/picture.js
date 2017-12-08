@@ -1,5 +1,7 @@
 'use strict';
 
+(function () {
+
 var photosNumber = 25;
 var urls = [];
 for (var mainPhoto = 1; mainPhoto <= photosNumber; mainPhoto++) {
@@ -121,3 +123,6 @@ var onOverlayCloseEnterPress = function (evt) {
 
 overlayClose.addEventListener('click', onOverlayCloseClick);
 overlayClose.addEventListener('keydown', onOverlayCloseEnterPress);
+})();
+
+
