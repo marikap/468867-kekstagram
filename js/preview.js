@@ -45,7 +45,7 @@ window.preview = (function () {
       closePicture();
     }
   };
-  var onCloseBtnClick = function (evt) {
+  var onCloseBtnClick = function () {
     closePicture();
   };
   var onCloseBtnEnterPress = function (evt) {
