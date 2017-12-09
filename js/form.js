@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
 
   var overlay = document.querySelector('.upload-overlay');
   var resizeValue = document.querySelector('.upload-resize-controls-value');
@@ -11,19 +10,9 @@
   var currentFilter = '';
 
   var onUploadOverlayEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && evt.target !== document.querySelector('.upload-form-description')) {
-      closeUploadOverlay();
+    if (evt.target !== document.querySelector('.upload-form-description')) {
+      window.data.isEscEvent(evt, closeUploadOverlay);
     }
-  };
-
-  var getValueCountInArray = function (array, value) {
-    var count = 0;
-    for (var i = array.length - 1; i >= 0; i--) {
-      if (array[i] === value) {
-        count++;
-      }
-    }
-    return count;
   };
 
   var openUploadOverlay = function () {
@@ -94,7 +83,7 @@
     for (var i = hashtags.length - 1; i >= 0; i--) {
       if (hashtags[i].length > 20
             || !(hashtags[i].startsWith('#'))
-            || getValueCountInArray(hashtags, hashtags[i]) > 1) {
+            || window.data.getValueCountInArray(hashtags, hashtags[i]) > 1) {
         return false;
       }
     }
