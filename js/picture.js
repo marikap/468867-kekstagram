@@ -1,15 +1,16 @@
 'use strict';
 
-window.picture = (function () {
-  var pictureTemplate = document.querySelector('#picture-template').content;
-  var createPictureElement = function (photo) {
-    var pictureElement = pictureTemplate.cloneNode(true);
-    pictureElement.querySelector('img').src = photo.url;
-    pictureElement.querySelector('.picture-comments').textContent = photo.comment.length;
-    pictureElement.querySelector('.picture-likes').textContent = photo.likes;
-    return pictureElement;
-  };
-  return {
-    createPictureElement: createPictureElement
+(function () {
+  var template = document.querySelector('#picture-template');
+
+  window.picture = {
+    renderPicture: function (photo) {
+      var node = template.content.cloneNode(true);
+      node.querySelector('img').setAttribute('src', photo.url);
+      node.querySelector('.picture-likes').textContent = photo.likes;
+      node.querySelector('.picture-comments').textContent = photo.comments;
+
+      return node;
+    }
   };
 })();
