@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-  
+
   var comments = [
     'Всё отлично!',
     'В целом всё неплохо. Но не всё.',
@@ -12,7 +12,7 @@
   ];
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
-  
+
   window.data = {
     selectRandomElements: function (count, array) {
       var out = [];
