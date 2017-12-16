@@ -8,10 +8,34 @@
   var descriptionField = document.querySelector('.upload-form-description');
   var imagePreview = document.querySelector('.effect-image-preview');
   var currentFilter = '';
+  var ESC_KEYCODE = 27;
+  var ENTER_KEYCODE = 13;
+  
+    isEscEvent: function (evt, action) {
+      if (evt.keyCode === ESC_KEYCODE) {
+        action();
+      }
+    },
+    isEnterEvent: function (evt, action) {
+      if (evt.keyCode === ENTER_KEYCODE) {
+        action();
+      }
+    },
+	
+  var = getValueCountInArray: function (array, value) {
+    var count = 0;
+      for (var i = array.length - 1; i >= 0; i--) {
+        if (array[i] === value) {
+          count++;
+        }
+      }
+      return count;
+    },
 
   var onUploadOverlayEscPress = function (evt) {
-    if (evt.target !== document.querySelector('.upload-form-description')) {
-      window.data.isEscEvent(evt, closeUploadOverlay);
+    if (evt.target !== document.querySelector('.upload-form-description') &&
+       isEscEvent(evt)) {
+     closeUploadOverlay();
     }
   };
 
@@ -83,7 +107,7 @@
     for (var i = hashtags.length - 1; i >= 0; i--) {
       if (hashtags[i].length > 20
             || !(hashtags[i].startsWith('#'))
-            || window.data.getValueCountInArray(hashtags, hashtags[i]) > 1) {
+            || getValueCountInArray(hashtags, hashtags[i]) > 1) {
         return false;
       }
     }

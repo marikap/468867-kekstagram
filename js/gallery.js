@@ -15,7 +15,7 @@
   for (var i = pictures.length - 1; i >= 0; i--) {
     pictures[i].addEventListener('click', function (evt) {
       evt.preventDefault();
-      window.preview.openPopap(evt);
+      window.preview.openPopup(evt);
     });
   }
 })();
