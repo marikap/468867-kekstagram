@@ -18,12 +18,12 @@
         out[i] = array[getRandomComments(0, maxIndex, true)];
       }
       return out;
-    },
+    };
   var getRandomComments = function (min, max, round) {
       round = round || false;
       var out = Math.random() * (max - min) + min;
       return round ? Math.round(out) : out;
-    },
+    };
     
   window.data = {
     createPhotoObjects: function () {

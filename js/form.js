@@ -27,7 +27,7 @@
         }
       }
       return count;
-    },
+    };
 
   var onUploadOverlayEscPress = function (evt) {
     if (evt.target !== document.querySelector('.upload-form-description') &&

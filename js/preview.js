@@ -39,8 +39,10 @@
   });
 
   overlayClose.addEventListener('keydown', function (evt) {
-    closePopup();
-  });
+   if(isEnterEvent(evt){
+        closePopup();
+   }
+   });
 
   window.preview = {
     openPopup: function (evt) {
