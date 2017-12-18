@@ -11,7 +11,7 @@
     'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
   ];
 
-  var = selectRandomElements: function (count, array) {
+  var selectRandomElements = function (count, array) {
       var out = [];
       var maxIndex = array.length - 1;
       for (var i = 0; i < count; i++) {
@@ -19,7 +19,7 @@
       }
       return out;
     },
-  var = getRandomComments: function (min, max, round) {
+  var getRandomComments = function (min, max, round) {
       round = round || false;
       var out = Math.random() * (max - min) + min;
       return round ? Math.round(out) : out;

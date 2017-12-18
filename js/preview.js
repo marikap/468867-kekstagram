@@ -6,10 +6,23 @@
   var overlayLikes = overlay.querySelector('.likes-count');
   var overlayComments = overlay.querySelector('.comments-count');
   var overlayClose = overlay.querySelector('.gallery-overlay-close');
+  
+  var ESC_KEYCODE = 27;
+  var ENTER_KEYCODE = 13;
+  
+  var isEscEvent = function (evt) {
+    return evt.keyCode === ESC_KEYCODE;
+}
+
+  var isEnterEvent = function (evt) {
+    return evt.keyCode === ENTER_KEYCODE;
+}
 
   var onPopupEscPress = function (evt) {
-    window.data.isEscEvent(evt, closePopup);
-  };
+    if(isEscEvent(evt){
+        closePopup();
+    }
+}
   var setOverlay = function (photo) {
     overlayImage.setAttribute('src', photo.url);
     overlayLikes.textContent = photo.likes;
@@ -26,7 +39,7 @@
   });
 
   overlayClose.addEventListener('keydown', function (evt) {
-    window.data.isEnterEvent(evt, closePopup);
+    closePopup();
   });
 
   window.preview = {

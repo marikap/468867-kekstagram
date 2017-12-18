@@ -11,18 +11,15 @@
   var ESC_KEYCODE = 27;
   var ENTER_KEYCODE = 13;
   
-    isEscEvent: function (evt, action) {
-      if (evt.keyCode === ESC_KEYCODE) {
-        action();
-      }
-    },
-    isEnterEvent: function (evt, action) {
-      if (evt.keyCode === ENTER_KEYCODE) {
-        action();
-      }
-    },
+  var isEscEvent = function (evt) {
+    return evt.keyCode === ESC_KEYCODE;
+}
+
+  var isEnterEvent = function (evt) {
+    return evt.keyCode === ENTER_KEYCODE;
+}
 	
-  var = getValueCountInArray: function (array, value) {
+  var getValueCountInArray = function (array, value) {
     var count = 0;
       for (var i = array.length - 1; i >= 0; i--) {
         if (array[i] === value) {
