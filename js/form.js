@@ -8,32 +8,19 @@
   var descriptionField = document.querySelector('.upload-form-description');
   var imagePreview = document.querySelector('.effect-image-preview');
   var currentFilter = '';
-  var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
-  
-  var isEscEvent = function (evt) {
-    return evt.keyCode === ESC_KEYCODE;
-}
 
-  var isEnterEvent = function (evt) {
-    return evt.keyCode === ENTER_KEYCODE;
-}
-	
   var getValueCountInArray = function (array, value) {
     var count = 0;
-      for (var i = array.length - 1; i >= 0; i--) {
-        if (array[i] === value) {
-          count++;
-        }
+    for (var i = array.length - 1; i >= 0; i--) {
+      if (array[i] === value) {
+        count++;
       }
-      return count;
-    };
+    }
+    return count;
+  };
 
   var onUploadOverlayEscPress = function (evt) {
-    if (evt.target !== document.querySelector('.upload-form-description') &&
-       isEscEvent(evt)) {
-     closeUploadOverlay();
-    }
+    window.util.isEscEvent(evt, closeUploadOverlay);
   };
 
   var openUploadOverlay = function () {

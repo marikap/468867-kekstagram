@@ -6,23 +6,19 @@
   var overlayLikes = overlay.querySelector('.likes-count');
   var overlayComments = overlay.querySelector('.comments-count');
   var overlayClose = overlay.querySelector('.gallery-overlay-close');
-  
-  var ESC_KEYCODE = 27;
-  var ENTER_KEYCODE = 13;
-  
-  var isEscEvent = function (evt) {
-    return evt.keyCode === ESC_KEYCODE;
-}
 
-  var isEnterEvent = function (evt) {
-    return evt.keyCode === ENTER_KEYCODE;
-}
+  var openGallery = function () {
+    window.galleryOverlay.classList.remove('hidden');
+    document.addEventListener('keydown', function (event) {
+      window.util.isEscEvent(event, closePopup);
+    });
+};
 
   var onPopupEscPress = function (evt) {
-    if(isEscEvent(evt){
-        closePopup();
-    }
-}
+    document.removeEventListener('keydown', function (event) {
+      window.util.isEscEvent(event, closePopup);
+    });
+};
   var setOverlay = function (photo) {
     overlayImage.setAttribute('src', photo.url);
     overlayLikes.textContent = photo.likes;
