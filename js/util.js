@@ -5,15 +5,11 @@
   var ENTER_KEYCODE = 13;
 
   window.util = {
-    isEscEvent: function (event, action, field) {
-      if (event.keyCode === ESC_KEYCODE && event.target !== field) {
-        action();
-      }
+    isEscEvent: function (event) {
+      return event.keyCode === ESC_KEYCODE
     },
-    isEnterEvent: function (event, action) {
-      if (event.keyCode === ENTER_KEYCODE) {
-        action();
-      }
+    isEnterEvent: function (event) {
+      return event.keyCode === ENTER_KEYCODE
     }
   };
 })();

@@ -20,7 +20,9 @@
   };
 
   var onUploadOverlayEscPress = function (evt) {
-    window.util.isEscEvent(evt, closeUploadOverlay);
+  	if(window.util.isEscEvent(evt)){
+  		closeUploadOverlay();
+  	}
   };
 
   var openUploadOverlay = function () {
