@@ -1,7 +1,6 @@
 'use strict';
 
 (function () {
-  var ESC_KEYCODE = 27;
 
   var overlay = document.querySelector('.upload-overlay');
   var resizeValue = document.querySelector('.upload-resize-controls-value');
@@ -9,12 +8,6 @@
   var descriptionField = document.querySelector('.upload-form-description');
   var imagePreview = document.querySelector('.effect-image-preview');
   var currentFilter = '';
-
-  var onUploadOverlayEscPress = function (evt) {
-    if (evt.keyCode === ESC_KEYCODE && evt.target !== document.querySelector('.upload-form-description')) {
-      closeUploadOverlay();
-    }
-  };
 
   var getValueCountInArray = function (array, value) {
     var count = 0;
@@ -24,6 +17,12 @@
       }
     }
     return count;
+  };
+
+  var onUploadOverlayEscPress = function (evt) {
+    if (window.util.isEscEvent(evt)) {
+      closeUploadOverlay();
+    }
   };
 
   var openUploadOverlay = function () {
