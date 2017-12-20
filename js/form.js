@@ -21,7 +21,7 @@
 
   var onUploadOverlayEscPress = function (evt) {
     if (window.util.isEscEvent(evt)) {
-        closeUploadOverlay();
+      closeUploadOverlay();
     }
   };
 
