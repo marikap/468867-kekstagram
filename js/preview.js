@@ -7,8 +7,8 @@
   var overlayComments = overlay.querySelector('.comments-count');
   var overlayClose = overlay.querySelector('.gallery-overlay-close');
 
-  var onPopupEscPress = function () {
-    if (window.util.isEscEvent(event)) {
+  var onPopupEscPress = function (evt) {
+    if (window.util.isEscEvent(evt)) {
       closePopup();
     }
   };
