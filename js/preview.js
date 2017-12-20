@@ -7,11 +7,11 @@
   var overlayComments = overlay.querySelector('.comments-count');
   var overlayClose = overlay.querySelector('.gallery-overlay-close');
 
-  var onPopupEscPress = function (evt) {
-      if( window.util.isEscEvent(event)){
-           closePopup();
-      }
-};
+  var onPopupEscPress = function () {
+    if (window.util.isEscEvent(event)) {
+      closePopup();
+    }
+  };
 
   var closePopup = function () {
     overlay.classList.add('hidden');
@@ -23,9 +23,9 @@
   });
 
   overlayClose.addEventListener('keydown', function (evt) {
-   if(window.util.isEnterEvent(evt)){
-        closePopup();
-   }
+    if (window.util.isEnterEvent(evt)) {
+      closePopup();
+    }
   });
 
   var setOverlay = function (photo) {
@@ -34,7 +34,7 @@
     overlayComments.textContent = photo.comments.length;
     overlay.classList.remove('hidden');
   };
-  
+
   window.preview = {
     openPopup: function (evt) {
       var sourceNode;

@@ -6,10 +6,10 @@
 
   window.util = {
     isEscEvent: function (event) {
-      return event.keyCode === ESC_KEYCODE
+      return event.keyCode === ESC_KEYCODE;
     },
     isEnterEvent: function (event) {
-      return event.keyCode === ENTER_KEYCODE
+      return event.keyCode === ENTER_KEYCODE;
     }
   };
 })();
