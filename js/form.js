@@ -9,6 +9,17 @@
   var imagePreview = document.querySelector('.effect-image-preview');
   var currentFilter = '';
 
+  var effectControls = document.querySelector('.upload-effect-level');
+  var levelPin = document.querySelector('.upload-effect-level-pin');
+  var levelValue = document.querySelector('.upload-effect-level-value');
+  var defaultLevelValue = levelValue.value;
+  var levelLine = document.querySelector('.upload-effect-level-line');
+  var levelBar = document.querySelector('.upload-effect-level-val');
+
+  var startX;
+  var cursorLeftLimit;
+  var cursorRightLimit;
+
   var getValueCountInArray = function (array, value) {
     var count = 0;
     for (var i = array.length - 1; i >= 0; i--) {
@@ -19,6 +30,8 @@
     return count;
   };
 
+  // upload overlay
+
   var onUploadOverlayEscPress = function (evt) {
     if (window.util.isEscEvent(evt)) {
       closeUploadOverlay();
@@ -27,6 +40,7 @@
 
   var openUploadOverlay = function () {
     overlay.classList.remove('hidden');
+    displayEffectControls();
     document.addEventListener('keydown', onUploadOverlayEscPress);
   };
 
@@ -35,13 +49,14 @@
     document.removeEventListener('keydown', onUploadOverlayEscPress);
   };
 
-  var applyEffect = function (evt) {
-    if (currentFilter.length > 0) {
-      imagePreview.classList.remove(currentFilter);
-    }
-    currentFilter = evt.target.parentNode.htmlFor.replace('upload-', '');
-    imagePreview.classList.add(currentFilter);
-  };
+  document.querySelector('#upload-file').addEventListener('change', function () {
+    openUploadOverlay();
+  });
+  document.querySelector('.upload-form-cancel').addEventListener('click', function () {
+    closeUploadOverlay();
+  });
+
+  // resize
 
   var resizeImage = function (way) {
     way = way || false;
@@ -64,6 +79,109 @@
     resizeValue.setAttribute('value', value + '%');
     imagePreview.setAttribute('style', 'transform: scale(' + value / 100 + ')');
   };
+
+  document.querySelector('.upload-resize-controls-button-dec').addEventListener('click', function () {
+    resizeImage();
+  });
+  document.querySelector('.upload-resize-controls-button-inc').addEventListener('click', function () {
+    resizeImage(true);
+  });
+
+  // effects
+
+  var displayEffectControls = function () {
+    if (currentFilter.length === 0 || currentFilter === 'effect-none') {
+      effectControls.classList.add('hidden');
+    } else {
+      effectControls.classList.remove('hidden');
+    }
+  };
+
+  var applyEffect = function (evt) {
+    levelValue.value = defaultLevelValue;
+    levelPin.style.left = levelBar.style.width = defaultLevelValue + '%';
+
+    if (currentFilter.length > 0) {
+      imagePreview.classList.remove(currentFilter);
+    }
+    currentFilter = evt.target.parentNode.htmlFor.replace('upload-', '');
+    applyEffectValue(defaultLevelValue);
+  };
+
+  var applyEffectValue = function (value) {
+    var newFilter;
+    switch (currentFilter) {
+      case 'effect-chrome':
+        newFilter = 'grayscale(' + value / 100 + ')';
+        break;
+      case 'effect-sepia':
+        newFilter = 'sepia(' + value / 100 + ')';
+        break;
+      case 'effect-marvin':
+        newFilter = 'invert(' + value + '%)';
+        break;
+      case 'effect-phobos':
+        newFilter = 'blur(' + value * 3 / 100 + 'px)';
+        break;
+      case 'effect-heat':
+        newFilter = 'brightness(' + value * 3 / 100 + ')';
+        break;
+      default:
+        newFilter = '';
+    }
+    imagePreview.style.filter = newFilter;
+  };
+
+  levelPin.addEventListener('mousedown', function (evt) {
+    evt.preventDefault();
+    startX = evt.clientX;
+    cursorLeftLimit = -1;
+    cursorRightLimit = -1;
+
+    document.addEventListener('mousemove', onMouseMove);
+    document.addEventListener('mouseup', onMouseUp);
+  });
+
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    if (((cursorLeftLimit !== -1) && moveEvt.clientX < cursorLeftLimit)
+      || ((cursorRightLimit !== -1) && moveEvt.clientX > cursorRightLimit)) {
+      return;
+    }
+    var shiftX = startX - moveEvt.clientX;
+    startX = moveEvt.clientX;
+
+    var newValue = levelPin.offsetLeft - shiftX;
+    if (newValue < 0) {
+      newValue = 0;
+      cursorLeftLimit = moveEvt.clientX;
+    }
+    if (newValue > levelLine.clientWidth) {
+      newValue = levelLine.clientWidth;
+      cursorRightLimit = moveEvt.clientX;
+    }
+
+    var newValuePercent = Math.round(newValue / (levelLine.clientWidth / 100));
+    levelValue.value = newValuePercent;
+    levelPin.style.left = newValue + 'px';
+    levelBar.style.width = newValuePercent + '%';
+    applyEffectValue(newValuePercent);
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.querySelector('#upload-select-image').addEventListener('click', function (evt) {
+    if (evt.target.classList.contains('upload-effect-preview')) {
+      applyEffect(evt);
+      displayEffectControls();
+    }
+  });
+  // validate & submit
 
   var validate = function () {
     var correct = true;
@@ -105,39 +223,16 @@
     return !(node.value.length > 140);
   };
 
-  document.querySelector('#upload-file').addEventListener('change', function () {
-    openUploadOverlay();
-  });
-
-  document.querySelector('.upload-form-cancel').addEventListener('click', function () {
-    closeUploadOverlay();
-  });
-
-  document.querySelector('#upload-select-image').addEventListener('click', function (evt) {
-    if (evt.target.classList.contains('upload-effect-preview')) {
-      applyEffect(evt);
-    }
-  });
-
-  document.querySelector('.upload-resize-controls-button-dec').addEventListener('click', function () {
-    resizeImage();
-  });
-
-  document.querySelector('.upload-resize-controls-button-inc').addEventListener('click', function () {
-    resizeImage(true);
-  });
-
   hashtagsField.addEventListener('change', function () {
     displayCheck(hashtagsField, checkHashtags(hashtagsField));
   });
-
   descriptionField.addEventListener('change', function () {
     displayCheck(descriptionField, checkDescription(descriptionField));
   });
-
   document.querySelector('.upload-form').addEventListener('submit', function (evt) {
     if (!validate()) {
       evt.preventDefault();
     }
   });
 })();
+
