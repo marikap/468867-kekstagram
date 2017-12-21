@@ -6,6 +6,7 @@
   var hashtagsField = document.querySelector('.upload-form-hashtags');
   var descriptionField = document.querySelector('.upload-form-description');
   var imagePreview = document.querySelector('.effect-image-preview');
+  var valueElement = '';
 
   var getValueCountInArray = function (array, value) {
     var count = 0;
@@ -52,9 +53,9 @@
 
   // effects
 
-  var applyFilter = function(filter){
-  	imagePreview.style.filter = filter;
-  }
+  var applyFilter = function (filter) {
+    imagePreview.style.filter = filter;
+  };
   window.initializeFilters(document.querySelector('.upload-effect__container'), applyFilter);
 
   // validate & submit

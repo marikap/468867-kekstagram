@@ -107,8 +107,8 @@
 
     node.addEventListener('click', function (evt) {
       if (evt.target.classList.contains('upload-effect-preview')) {
-      	applyEffect(evt);
-      	displayEffectControls(evt);
+        applyEffect(evt);
+        displayEffectControls(evt);
       }
     });
   };
