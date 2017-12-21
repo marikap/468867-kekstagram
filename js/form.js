@@ -30,7 +30,7 @@
     return count;
   };
 
-//upload overlay
+  // upload overlay
 
   var onUploadOverlayEscPress = function (evt) {
     if (window.util.isEscEvent(evt)) {
@@ -40,7 +40,7 @@
 
   var openUploadOverlay = function () {
     overlay.classList.remove('hidden');
-	displayEffectControls();
+    displayEffectControls();
     document.addEventListener('keydown', onUploadOverlayEscPress);
   };
 
@@ -56,9 +56,9 @@
     closeUploadOverlay();
   });
 
-//resize
+  // resize
 
- var resizeImage = function (way) {
+  var resizeImage = function (way) {
     way = way || false;
     var min = Number(resizeValue.getAttribute('min').replace('%', ''));
     var max = Number(resizeValue.getAttribute('max').replace('%', ''));
@@ -87,7 +87,7 @@
     resizeImage(true);
   });
 
-  //effects
+  // effects
 
   var displayEffectControls = function () {
     if (currentFilter.length === 0 || currentFilter === 'effect-none') {
@@ -99,7 +99,7 @@
 
   var applyEffect = function (evt) {
     levelValue.value = defaultLevelValue;
-    levelPin.style.left = levelBar.style.width = defaultLevelValue + "%";
+    levelPin.style.left = levelBar.style.width = defaultLevelValue + '%';
 
     if (currentFilter.length > 0) {
       imagePreview.classList.remove(currentFilter);
@@ -181,7 +181,7 @@
       displayEffectControls();
     }
   });
-//validate & submit
+  // validate & submit
 
   var validate = function () {
     var correct = true;
