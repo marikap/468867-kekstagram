@@ -45,7 +45,7 @@
 
   // resize
 
-  var resizeImage = function (value) {
+  var resizeImage = function (valueElement, value) {
     valueElement.setAttribute('value', value + '%');
     imagePreview.style.transform = 'scale(' + value / 100 + ')';
   };
