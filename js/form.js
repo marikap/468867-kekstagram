@@ -6,7 +6,6 @@
   var hashtagsField = document.querySelector('.upload-form-hashtags');
   var descriptionField = document.querySelector('.upload-form-description');
   var imagePreview = document.querySelector('.effect-image-preview');
-  var valueElement = '';
 
   var getValueCountInArray = function (array, value) {
     var count = 0;
