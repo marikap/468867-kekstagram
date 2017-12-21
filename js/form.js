@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-
+  var form = document.querySelector('.upload-form');
   var overlay = document.querySelector('.upload-overlay');
   var hashtagsField = document.querySelector('.upload-form-hashtags');
   var descriptionField = document.querySelector('.upload-form-description');
@@ -110,5 +110,15 @@
       evt.preventDefault();
     }
   });
+  form.addEventListener('submit', function (event) {
+    if (validate()) {
+      window.backend.save(new FormData(form), function () {
+        closeUploadOverlay();
+        form.reset();
+        applyEffect();
+      }, window.util.displayError);
+    }
+    event.preventDefault();
+});
 })();
 
