@@ -3,7 +3,6 @@
 (function () {
 
   var overlay = document.querySelector('.upload-overlay');
-  var resizeValue = document.querySelector('.upload-resize-controls-value');
   var hashtagsField = document.querySelector('.upload-form-hashtags');
   var descriptionField = document.querySelector('.upload-form-description');
   var imagePreview = document.querySelector('.effect-image-preview');
@@ -58,34 +57,13 @@
 
   // resize
 
-  var resizeImage = function (way) {
-    way = way || false;
-    var min = Number(resizeValue.getAttribute('min').replace('%', ''));
-    var max = Number(resizeValue.getAttribute('max').replace('%', ''));
-    var step = Number(resizeValue.getAttribute('step').replace('%', ''));
-    var value = Number(resizeValue.getAttribute('value').replace('%', ''));
-
-    if (way) {
-      value += step;
-      if (value > max) {
-        value = max;
-      }
-    } else {
-      value -= step;
-      if (value < min) {
-        value = min;
-      }
-    }
-    resizeValue.setAttribute('value', value + '%');
-    imagePreview.setAttribute('style', 'transform: scale(' + value / 100 + ')');
+  var resizeImage = function (valueElement, value) {
+    valueElement.setAttribute('value', value + '%');
+    imagePreview.style.transform = 'scale(' + value / 100 + ')';
   };
-
-  document.querySelector('.upload-resize-controls-button-dec').addEventListener('click', function () {
-    resizeImage();
-  });
-  document.querySelector('.upload-resize-controls-button-inc').addEventListener('click', function () {
-    resizeImage(true);
-  });
+  window.initializeFilters(document.querySelector('#upload-select-image'), [applyEffect, displayEffectControls]);
+  window.initializeScale(document.querySelector('.upload-resize-controls-button-dec'), resizeImage);
+  window.initializeScale(document.querySelector('.upload-resize-controls-button-inc'), resizeImage, true);
 
   // effects
 
