@@ -29,12 +29,12 @@
     createGallery();
     filters.classList.remove('filters-inactive');
   };
-  
+ 
   window.backend.load(
       function (response) {
         loadObjects(document.querySelector('.pictures'), response);
         addHandlers(document.querySelectorAll('.picture'));
-		onSuccessLoad;
+        onSuccessLoad;
       },
       window.util.displayError
   );
