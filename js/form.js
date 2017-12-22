@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-
+  var form = document.querySelector('.upload-form');
   var overlay = document.querySelector('.upload-overlay');
   var hashtagsField = document.querySelector('.upload-form-hashtags');
   var descriptionField = document.querySelector('.upload-form-description');
@@ -44,8 +44,7 @@
 
   // resize
 
-  var resizeImage = function (valueElement, value) {
-    valueElement.setAttribute('value', value + '%');
+  var resizeImage = function (value) {
     imagePreview.style.transform = 'scale(' + value / 100 + ')';
   };
   window.initializeScale(document.querySelector('.upload-resize-controls'), resizeImage);
@@ -55,7 +54,7 @@
   var applyFilter = function (filter) {
     imagePreview.style.filter = filter;
   };
-  window.initializeFilters(document.querySelector('.upload-effect__container'), applyFilter);
+  window.initializeFilters(document.querySelector('.upload-form'), applyFilter);
 
   // validate & submit
 
@@ -109,6 +108,16 @@
     if (!validate()) {
       evt.preventDefault();
     }
+  });
+  form.addEventListener('submit', function (event) {
+    if (validate()) {
+      window.backend.save(new FormData(form), function () {
+        closeUploadOverlay();
+        form.reset();
+        resizeImage(100);
+      }, window.util.displayError);
+    }
+    event.preventDefault();
   });
 })();
 
