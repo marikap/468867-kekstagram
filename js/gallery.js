@@ -5,6 +5,7 @@
   var filters = document.querySelector('.filters');
   var unsortedData;
   var sortedData;
+  var pictureTemplate = document.querySelector('#picture-template').content;
   var createGallery = function () {
     while (loadObjects.firstChild) {
       loadObjects.removeChild(loadObjects.firstChild);
@@ -17,7 +18,14 @@
     });
     loadObjects.appendChild(fragment);
   };
-
+  var renderPhoto = function (photo, template) {
+    var photoElement = template.cloneNode(true);
+    photoElement.querySelector('img').src = photo.url;
+    photoElement.querySelector('.picture-likes').textContent = photo.likes;
+    photoElement.querySelector('.picture-comments').textContent = photo.comments.length;
+    return photoElement;
+  };
+  
   var loadObjects = function (block, objects) {
     var fragment = document.createDocumentFragment();
     for (var i = objects.length - 1; i >= 0; i--) {
@@ -40,7 +48,7 @@
     createGallery();
     filters.classList.remove('filters-inactive');
   };
- 
+
   window.backend.load(
       function (response) {
         loadObjects(document.querySelector('.pictures'), response);
