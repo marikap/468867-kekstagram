@@ -5,7 +5,8 @@
   var filters = document.querySelector('.filters');
   var unsortedData;
   var sortedData;
-  
+  var createGallery;
+
   var loadObjects = function (block, objects) {
     var fragment = document.createDocumentFragment();
     for (var i = objects.length - 1; i >= 0; i--) {
