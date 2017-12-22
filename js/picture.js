@@ -8,7 +8,7 @@
       var node = template.content.cloneNode(true);
       node.querySelector('img').setAttribute('src', photo.url);
       node.querySelector('.picture-likes').textContent = photo.likes;
-      node.querySelector('.picture-comments').textContent = photo.comments;
+      node.querySelector('.picture-comments').textContent = photo.comments.length;
 
       return node;
     }

@@ -3,33 +3,22 @@
 (function () {
 
   var filters = document.querySelector('.filters');
+  var pictures = document.querySelector(".pictures");
   var unsortedData;
   var sortedData;
-  var pictureTemplate = document.querySelector('#picture-template').content;
+
   var createGallery = function () {
-    while (loadObjects.firstChild) {
-      loadObjects.removeChild(loadObjects.firstChild);
-    }
-    var fragment = document.createDocumentFragment();
-    sortedData.forEach(function (photo) {
-      var picturePhoto = renderPhoto(photo, pictureTemplate);
-      picturePhoto.querySelector('.picture').addEventListener('click', window.preview.overlayClose);
-      fragment.appendChild(picturePhoto);
-    });
-    loadObjects.appendChild(fragment);
-  };
-  var renderPhoto = function (photo, template) {
-    var photoElement = template.cloneNode(true);
-    photoElement.querySelector('img').src = photo.url;
-    photoElement.querySelector('.picture-likes').textContent = photo.likes;
-    photoElement.querySelector('.picture-comments').textContent = photo.comments.length;
-    return photoElement;
+    loadObjects(pictures, sortedData);
+    addHandlers(pictures.childNodes);
   };
   
   var loadObjects = function (block, objects) {
     var fragment = document.createDocumentFragment();
-    for (var i = objects.length - 1; i >= 0; i--) {
+    for (var i = 0; i < objects.length; i++) {
       fragment.appendChild(window.picture.renderPicture(objects[i]));
+    }
+    while (block.firstChild) {
+      block.removeChild(block.firstChild);
     }
     block.appendChild(fragment);
   };
@@ -42,22 +31,20 @@
       });
     }
   };
-  var onSuccessLoad = function (data) {
-    unsortedData = data;
-    sortedData = data;
-    createGallery();
-    filters.classList.remove('filters-inactive');
-  };
 
   window.backend.load(
       function (response) {
-        loadObjects(document.querySelector('.pictures'), response);
-        addHandlers(document.querySelectorAll('.picture'));
-        onSuccessLoad();
+      	console.log(response);
+      	unsortedData = response;
+      	sortedData = response.slice(0);
+        createGallery();
+        filters.classList.remove('hidden');
       },
       window.util.displayError
   );
+
   var currentFilter = 'recommend';
+
   var applyFilter = function (evt) {
     if (evt.target.type !== 'radio') {
       return;
@@ -91,7 +78,7 @@
       // Рекомендуемые
       case 'recommend':
       default:
-        sortedData = unsortedData;
+        sortedData = unsortedData.slice(0);
     }
     window.debounce(createGallery);
     currentFilter = filter;
