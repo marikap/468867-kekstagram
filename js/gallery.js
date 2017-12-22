@@ -5,7 +5,18 @@
   var filters = document.querySelector('.filters');
   var unsortedData;
   var sortedData;
-  var createGallery;
+  var createGallery = function () {
+    while (loadObjects.firstChild) {
+      loadObjects.removeChild(loadObjects.firstChild);
+    }
+    var fragment = document.createDocumentFragment();
+    sortedData.forEach(function (photo) {
+      var picturePhoto = renderPhoto(photo, pictureTemplate);
+      picturePhoto.querySelector('.picture').addEventListener('click', window.preview.overlayClose);
+      fragment.appendChild(picturePhoto);
+    });
+    loadObjects.appendChild(fragment);
+  };
 
   var loadObjects = function (block, objects) {
     var fragment = document.createDocumentFragment();
@@ -34,7 +45,7 @@
       function (response) {
         loadObjects(document.querySelector('.pictures'), response);
         addHandlers(document.querySelectorAll('.picture'));
-        onSuccessLoad;
+        onSuccessLoad();
       },
       window.util.displayError
   );
