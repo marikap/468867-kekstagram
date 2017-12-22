@@ -24,7 +24,7 @@
         loadObjects(document.querySelector('.pictures'), response);
         addHandlers(document.querySelectorAll('.picture'));
       },
-    window.util.displayError
+      window.util.displayError
   );
 
 })();
