@@ -3,7 +3,7 @@
 (function () {
 
   var filters = document.querySelector('.filters');
-  var pictures = document.querySelector(".pictures");
+  var pictures = document.querySelector('.pictures');
   var unsortedData;
   var sortedData;
 
@@ -11,7 +11,7 @@
     loadObjects(pictures, sortedData);
     addHandlers(pictures.childNodes);
   };
-  
+
   var loadObjects = function (block, objects) {
     var fragment = document.createDocumentFragment();
     for (var i = 0; i < objects.length; i++) {
@@ -34,9 +34,8 @@
 
   window.backend.load(
       function (response) {
-      	console.log(response);
-      	unsortedData = response;
-      	sortedData = response.slice(0);
+        unsortedData = response;
+        sortedData = response.slice(0);
         createGallery();
         filters.classList.remove('hidden');
       },
