@@ -115,10 +115,10 @@
       window.backend.save(new FormData(form), function () {
         closeUploadOverlay();
         form.reset();
-        applyEffect();
+        applyFilter();
       }, window.util.displayError);
     }
     event.preventDefault();
-});
+  });
 })();
 

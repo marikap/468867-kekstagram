@@ -10,7 +10,7 @@
     },
     isEnterEvent: function (event) {
       return event.keyCode === ENTER_KEYCODE;
-    }
+    },
 	
 	displayError: function (errorMessage) {
 	  var node = document.createElement('div');
