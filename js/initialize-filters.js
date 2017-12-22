@@ -25,11 +25,11 @@
     }
     return filter;
   };
-  
-  var getNewFilter = function(evt){
-      var radioId = evt.target.parentNode.htmlFor;
-      return document.querySelector("#" + radioId).value;
-  }
+
+  var getNewFilter = function (evt) {
+    var radioId = evt.target.parentNode.htmlFor;
+    return document.querySelector('#' + radioId).value;
+  };
 
   window.initializeFilters = function (node, action) {
     var effectControls = node.querySelector('.upload-effect-level');
@@ -43,14 +43,14 @@
     var cursorLeftLimit;
     var cursorRightLimit;
 
-    var getCurrentFilter = function(){
-    	var checked = node.querySelector("[name=effect]:checked");
-    	return checked ? checked.value : "";
-    }
+    var getCurrentFilter = function () {
+      var checked = node.querySelector('[name=effect]:checked');
+      return checked ? checked.value : '';
+    };
 
 
     var displayEffectControls = function (evt) {
-      var newFilter = evt ? getNewFilter(evt) : "";
+      var newFilter = evt ? getNewFilter(evt) : '';
       if (newFilter.length === 0 || newFilter === 'none') {
         effectControls.classList.add('hidden');
       } else {
@@ -121,10 +121,10 @@
       }
     }, false);
 
-    node.addEventListener("reset", function(){
-    	displayEffectControls();
-   	    action("");
-    })
+    node.addEventListener('reset', function () {
+        displayEffectControls();
+        action('');
+    });
   };
 })();
 

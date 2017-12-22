@@ -11,9 +11,9 @@
     isEnterEvent: function (event) {
       return event.keyCode === ENTER_KEYCODE;
     },
-	
-	displayError: function (errorMessage) {
-	  var node = document.createElement('div');
+
+    displayError: function (errorMessage) {
+      var node = document.createElement('div');
       node.classList.add('upload-form-errorMessage');
       node.style = 'z-index: 100; margin: 0 auto; text-align: center; background-color: red;';
       node.style.position = 'absolute';
@@ -31,6 +31,6 @@
       if (remNode) {
         remNode.parentNode.removeChild(remNode);
       }
-},
+    },
   };
 })();
