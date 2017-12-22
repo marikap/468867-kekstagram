@@ -5,19 +5,19 @@
   var calculateFilter = function (filterType, value) {
     var filter;
     switch (filterType) {
-      case 'effect-chrome':
+      case 'chrome':
         filter = 'grayscale(' + value / 100 + ')';
         break;
-      case 'effect-sepia':
+      case 'sepia':
         filter = 'sepia(' + value / 100 + ')';
         break;
-      case 'effect-marvin':
+      case 'marvin':
         filter = 'invert(' + value + '%)';
         break;
-      case 'effect-phobos':
+      case 'phobos':
         filter = 'blur(' + value * 3 / 100 + 'px)';
         break;
-      case 'effect-heat':
+      case 'heat':
         filter = 'brightness(' + value * 3 / 100 + ')';
         break;
       default:
@@ -25,10 +25,13 @@
     }
     return filter;
   };
+  
+  var getNewFilter = function(evt){
+      var radioId = evt.target.parentNode.htmlFor;
+      return document.querySelector("#" + radioId).value;
+  }
 
   window.initializeFilters = function (node, action) {
-    var currentFilter = '';
-
     var effectControls = node.querySelector('.upload-effect-level');
     var levelPin = node.querySelector('.upload-effect-level-pin');
     var levelValue = node.querySelector('.upload-effect-level-value');
@@ -40,8 +43,15 @@
     var cursorLeftLimit;
     var cursorRightLimit;
 
-    var displayEffectControls = function () {
-      if (currentFilter.length === 0 || currentFilter === 'effect-none') {
+    var getCurrentFilter = function(){
+    	var checked = node.querySelector("[name=effect]:checked");
+    	return checked ? checked.value : "";
+    }
+
+
+    var displayEffectControls = function (evt) {
+      var newFilter = evt ? getNewFilter(evt) : "";
+      if (newFilter.length === 0 || newFilter === 'none') {
         effectControls.classList.add('hidden');
       } else {
         effectControls.classList.remove('hidden');
@@ -75,7 +85,7 @@
       levelPin.style.left = newValue + 'px';
       levelBar.style.width = newValuePercent + '%';
 
-      var filter = calculateFilter(currentFilter, newValuePercent);
+      var filter = calculateFilter(getCurrentFilter(), newValuePercent);
       action(filter);
     };
 
@@ -89,9 +99,8 @@
       levelValue.value = defaultLevelValue;
       levelPin.style.left = levelBar.style.width = defaultLevelValue + '%';
 
-      currentFilter = evt.target.parentNode.htmlFor.replace('upload-', '');
-
-      var filter = calculateFilter(currentFilter, defaultLevelValue);
+      var newFilter = getNewFilter(evt);
+      var filter = calculateFilter(newFilter, defaultLevelValue);
       action(filter);
     };
 
@@ -110,7 +119,12 @@
         applyEffect(evt);
         displayEffectControls(evt);
       }
-    });
+    }, false);
+
+    node.addEventListener("reset", function(){
+    	displayEffectControls();
+   	    action("");
+    })
   };
 })();
 

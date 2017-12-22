@@ -44,8 +44,7 @@
 
   // resize
 
-  var resizeImage = function (valueElement, value) {
-    valueElement.setAttribute('value', value + '%');
+  var resizeImage = function (value) {
     imagePreview.style.transform = 'scale(' + value / 100 + ')';
   };
   window.initializeScale(document.querySelector('.upload-resize-controls'), resizeImage);
@@ -55,7 +54,7 @@
   var applyFilter = function (filter) {
     imagePreview.style.filter = filter;
   };
-  window.initializeFilters(document.querySelector('.upload-effect__container'), applyFilter);
+  window.initializeFilters(document.querySelector('.upload-form'), applyFilter);
 
   // validate & submit
 
@@ -115,7 +114,7 @@
       window.backend.save(new FormData(form), function () {
         closeUploadOverlay();
         form.reset();
-        applyFilter();
+        resizeImage(100);
       }, window.util.displayError);
     }
     event.preventDefault();
