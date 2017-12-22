@@ -122,8 +122,8 @@
     }, false);
 
     node.addEventListener('reset', function () {
-        displayEffectControls();
-        action('');
+      displayEffectControls();
+      action('');
     });
   };
 })();
