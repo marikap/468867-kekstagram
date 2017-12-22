@@ -31,7 +31,7 @@
   var setOverlay = function (photo) {
     overlayImage.setAttribute('src', photo.url);
     overlayLikes.textContent = photo.likes;
-    overlayComments.textContent = photo.comments.length;
+    overlayComments.textContent = photo.comments;
     overlay.classList.remove('hidden');
   };
 
