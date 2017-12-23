@@ -11,3 +11,4 @@
     lastTimeout = window.setTimeout(fun, debounceInterval);
   };
 })();
+
