@@ -25,12 +25,5 @@
       node.textContent = errorMessage;
       document.body.insertAdjacentElement('afterbegin', node);
     },
-    clearErrorMessage: function () {
-      var remNode = document.querySelector('.upload-form-errorMessage');
-
-      if (remNode) {
-        remNode.parentNode.removeChild(remNode);
-      }
-    },
   };
 })();
